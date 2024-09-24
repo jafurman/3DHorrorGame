@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Lever : Interactable
 {
+    [SerializeField]
+    public GameObject door;
+    private bool doorOpen;
     // Start is called before the first frame update
     void Start()
     {
@@ -11,13 +14,14 @@ public class Lever : Interactable
     }
 
     // Update is called once per frame
-    void Update()
+    public void BaseInteract()
     {
-        
+        Interact();
     }
 
     protected override void Interact()
     {
-        Debug.Log("Interacted with" + gameObject.name);
+        doorOpen = !doorOpen;
+        door.GetComponent<Animator>().SetBool("IsOpen", doorOpen);
     }
 }

@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 public class InputManager : MonoBehaviour
 {
     private PlayerInput playerInput;
-    private PlayerInput.WalkingActions onFoot;
+    public PlayerInput.WalkingActions onFoot;
     private PlayerMotor motor;
     private PlayerLook look; 
 
