@@ -16,6 +16,11 @@ public class mazeGenerator : MonoBehaviour
 
     private mazeCell[,] mazeGrid;
 
+    public mazeCell lastCell;
+
+    public GameObject lastCellPrefab;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,14 +35,18 @@ public class mazeGenerator : MonoBehaviour
         }
 
         GenerateMaze(null, mazeGrid[0,0]);
+
+        // last cell entry 
+        int x1 = (int)lastCell.transform.position.x;
+        int z1 = (int)lastCell.transform.position.z;
+        Instantiate(lastCellPrefab, new Vector3(x1, 1.33f, z1), Quaternion.identity);
     }
 
     private void GenerateMaze(mazeCell previousCell, mazeCell currentCell)
     {
+
         currentCell.Visit();
         ClearWalls(previousCell, currentCell);
-
-        new WaitForSeconds(0.05f);
 
         mazeCell nextCell ;
 
@@ -49,8 +58,12 @@ public class mazeGenerator : MonoBehaviour
         if (nextCell != null)
         {
             GenerateMaze(currentCell, nextCell);
+
+            lastCell = currentCell;
         }
         } while (nextCell != null);
+
+
     }
 
     private mazeCell GetNextUnvisitedCell(mazeCell currentCell)
